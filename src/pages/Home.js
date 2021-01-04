@@ -4,6 +4,7 @@ import { loadGames } from "../actions/gamesActions";
 
 //Components
 import Game from "../components/Game";
+import GameDetail from "../components/GameDetail";
 //Styling and Animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -18,28 +19,28 @@ const Home = (params) => {
   const { popular, newGames, upcoming } = useSelector((state) => state.games);
   return (
     <GameList>
-      <h2>Upcoming Games</h2>
-      <Games>
-        {upcoming.map((game) => (
-          <Game name={game.name} released={game.released} image={game.background_image} key={game.id} />
-        ))}
-      </Games>
-      <h2>Popular Games</h2>
-      <Games>
-        {popular.map((game) => (
-          <Game name={game.name} released={game.released} image={game.background_image} key={game.id} />
-        ))}
-      </Games>
-      <h2>New Games</h2>
-      <Games>
-        {newGames.map((game) => (
-          <Game name={game.name} released={game.released} image={game.background_image} key={game.id} />
-        ))}
-      </Games>
+      <GameDetail />
+      <ShowGames title="Upcoming Games" data={upcoming} />
+      <ShowGames title="Popular Games" data={popular} />
+      <ShowGames title="New Games" data={newGames} />
     </GameList>
   );
 };
 
+const ShowGames = ({ title, data }) => {
+  return (
+    <>
+      <h2>{title}</h2>
+      <Games>
+        {data.map((game) => (
+          <Game name={game.name} released={game.released} image={game.background_image} id={game.id} key={game.id} />
+        ))}
+      </Games>
+    </>
+  );
+};
+
+// Styles
 const GameList = styled(motion.div)`
   padding: 0rem 5rem;
   h2 {
