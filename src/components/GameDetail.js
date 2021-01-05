@@ -31,6 +31,15 @@ const GameDetail = ({ pathID }) => {
     }
   };
 
+  //Get Star Rating
+  const getStars = () => {
+    const stars = [];
+    const rating = Math.floor(game.rating);
+    for (let i = 0; i < 5; i++) {
+      stars.push(<img src={i < rating ? starFull : starEmpty} key={i} alt="star" />);
+    }
+    return stars;
+  };
   //Get Platform Image
   const getPlatform = (platform) => {
     return (
@@ -58,6 +67,7 @@ const GameDetail = ({ pathID }) => {
               <div className="rating">
                 <motion.h3 layoutId={`title ${pathID}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
+                {getStars()}
               </div>
               <Info>
                 <h3>Platforms</h3>
@@ -126,6 +136,11 @@ const Stats = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  img {
+    width: 2rem;
+    height: 2rem;
+    display: inline;
+  }
 `;
 
 const Info = styled(motion.div)`
@@ -155,7 +170,7 @@ const Platforms = styled(motion.div)`
 
     /* Position the tooltip */
     position: absolute;
-    top: 100%;
+    top: 130%;
     left: 25%;
     z-index: 1;
   }
