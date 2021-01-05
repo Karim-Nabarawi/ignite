@@ -2,6 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+//utility
+import { smallImage } from "../util";
+
 //Styling and Animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -39,14 +42,14 @@ const GameDetail = () => {
               </Info>
             </Stats>
             <Media>
-              <img src={game.background_image} alt="image" />
+              <img src={smallImage(game.background_image, 1280)} alt={game.name} />
             </Media>
             <Description>
               <p>{game.description_raw}</p>
             </Description>
             <div className="gallery">
               {screen.map((screen) => (
-                <img src={screen.image} key={screen.id} alt="game" />
+                <img src={smallImage(screen.image, 1280)} key={screen.id} alt="game" />
               ))}
             </div>
           </Detail>
