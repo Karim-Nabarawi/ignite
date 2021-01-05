@@ -9,6 +9,17 @@ import { smallImage } from "../util";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
+//IMAGES
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import xbox from "../img/xbox.svg";
+import nintendo from "../img/nintendo.svg";
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
+//Star Images
+import starEmpty from "../img/star-empty.png";
+import starFull from "../img/star-full.png";
+
 const GameDetail = ({ pathID }) => {
   const history = useHistory();
   //Exit Details
@@ -18,6 +29,22 @@ const GameDetail = ({ pathID }) => {
       document.body.style.overflow = "auto";
       history.push("/");
     }
+  };
+
+  //Get Platform Image
+  const getPlatform = (platform) => {
+    return (
+      {
+        "PlayStation 4": playstation,
+        "PlayStation 5": playstation,
+        "Xbox Series S/X": xbox,
+        "Xbox S": xbox,
+        "Xbox One": xbox,
+        "Nintendo Switch": nintendo,
+        PC: steam,
+        iOS: apple,
+      }[platform] || gamepad
+    );
   };
 
   //Data
@@ -36,7 +63,10 @@ const GameDetail = ({ pathID }) => {
                 <h3>Platforms</h3>
                 <Platforms>
                   {game.platforms.map((data) => (
-                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                    <div className="tooltip" key={data.platform.id}>
+                      <img src={getPlatform(data.platform.name)} alt={data.platform.name} />
+                      <span className="tooltiptext">{data.platform.name}</span>
+                    </div>
                   ))}
                 </Platforms>
               </Info>
@@ -107,6 +137,31 @@ const Platforms = styled(motion.div)`
   justify-content: space-evenly;
   img {
     margin-left: 3rem;
+  }
+  .tooltip {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    top: 100%;
+    left: 25%;
+    z-index: 1;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
   }
 `;
 
