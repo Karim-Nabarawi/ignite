@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import logo from "../img/logo.svg";
+import { fadeIn } from "../animation";
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const Nav = () => {
     dispatch({ type: "CLEAR_SEARCHED" });
   };
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <Logo onClick={clearSearched}>
         <img src={logo} alt="logo" />
         <h1>Ignite</h1>
@@ -57,6 +58,16 @@ const StyledNav = styled(motion.div)`
     background: #ff7676;
     color: white;
   }
+  @media (max-width: 670px) {
+    padding: 0.5rem 0.5rem;
+    input {
+      width: 50%;
+      font-size: 1rem;
+    }
+    button {
+      font-size: 1rem;
+    }
+  }
 `;
 const Logo = styled(motion.div)`
   display: flex;
@@ -66,6 +77,9 @@ const Logo = styled(motion.div)`
   img {
     height: 2rem;
     width: 2rem;
+  }
+  @media (max-width: 670px) {
+    padding: 0.5rem;
   }
 `;
 export default Nav;

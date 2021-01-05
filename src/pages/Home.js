@@ -11,6 +11,7 @@ import GameDetail from "../components/GameDetail";
 //Styling and Animation
 import styled from "styled-components";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { fadeIn } from "../animation";
 
 const Home = (params) => {
   //Get current location
@@ -27,7 +28,7 @@ const Home = (params) => {
   const { popular, newGames, upcoming, searched } = useSelector((state) => state.games);
 
   return (
-    <GameList>
+    <GameList variants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>{pathID && <GameDetail pathID={pathID} />}</AnimatePresence>
         {searched.length ? <ShowGames title="Searched Games" data={searched} /> : ""}
@@ -57,6 +58,14 @@ const GameList = styled(motion.div)`
   padding: 0rem 5rem;
   h2 {
     padding: 5rem 0rem;
+  }
+  @media (max-width: 470px) {
+    padding: 0;
+    h2 {
+      padding: 1.5rem;
+      justify-content: center;
+      text-align: center;
+    }
   }
 `;
 
