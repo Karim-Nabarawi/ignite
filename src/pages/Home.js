@@ -24,12 +24,13 @@ const Home = (params) => {
   }, [dispatch]);
 
   //Get the fetched data from Redux and assign it
-  const { popular, newGames, upcoming } = useSelector((state) => state.games);
+  const { popular, newGames, upcoming, searched } = useSelector((state) => state.games);
 
   return (
     <GameList>
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>{pathID && <GameDetail pathID={pathID} />}</AnimatePresence>
+        {searched.length ? <ShowGames title="Searched Games" data={searched} /> : ""}
         <ShowGames title="Upcoming Games" data={upcoming} />
         <ShowGames title="Popular Games" data={popular} />
         <ShowGames title="New Games" data={newGames} />
