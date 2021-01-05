@@ -9,7 +9,7 @@ import { smallImage } from "../util";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-const GameDetail = () => {
+const GameDetail = ({ pathID }) => {
   const history = useHistory();
   //Exit Details
   const exitDetailHandler = (e) => {
@@ -25,11 +25,11 @@ const GameDetail = () => {
   return (
     <>
       {!isLoading && (
-        <CardShadow className="shadow" onClick={exitDetailHandler}>
+        <CardShadow className="shadow" layoutId={pathID} onClick={exitDetailHandler}>
           <Detail>
             <Stats>
               <div className="rating">
-                <h3>{game.name}</h3>
+                <motion.h3 layoutId={`title ${pathID}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
               </div>
               <Info>
@@ -42,7 +42,7 @@ const GameDetail = () => {
               </Info>
             </Stats>
             <Media>
-              <img src={smallImage(game.background_image, 1280)} alt={game.name} />
+              <motion.img layoutId={`image ${pathID}`} src={smallImage(game.background_image, 1280)} alt={game.name} />
             </Media>
             <Description>
               <p>{game.description_raw}</p>
@@ -67,6 +67,7 @@ const CardShadow = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 999;
   &::-webkit-scrollbar {
     width: 0.5rem;
   }

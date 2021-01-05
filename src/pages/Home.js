@@ -10,7 +10,7 @@ import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
 //Styling and Animation
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 
 const Home = (params) => {
   //Get current location
@@ -28,10 +28,12 @@ const Home = (params) => {
 
   return (
     <GameList>
-      {pathID && <GameDetail />}
-      <ShowGames title="Upcoming Games" data={upcoming} />
-      <ShowGames title="Popular Games" data={popular} />
-      <ShowGames title="New Games" data={newGames} />
+      <AnimateSharedLayout type="crossfade">
+        <AnimatePresence>{pathID && <GameDetail pathID={pathID} />}</AnimatePresence>
+        <ShowGames title="Upcoming Games" data={upcoming} />
+        <ShowGames title="Popular Games" data={popular} />
+        <ShowGames title="New Games" data={newGames} />
+      </AnimateSharedLayout>
     </GameList>
   );
 };
